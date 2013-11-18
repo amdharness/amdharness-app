@@ -6,7 +6,7 @@ JavaScript AMD based application framework.
 The goal is to make amd use a straightforward and consistent with html page SDLC.
 It comprize the modules embedding and use convention, unification of documentation, tests, design and support.
 
-The modular structure is normalized across project parts and emphasize individual SDLC
+The modular structure is normalized across project parts and emphasize individual SDLC for its modules
 from dedicated version control repository to folder hierarchy and AMD MIDs convention.
 
 Present structure in amdharness-app repository serves design and development phase of SDLC.
@@ -34,26 +34,26 @@ loader.js will help to phase the application resources load to
 most used MIDs
 --------------
 The most popular APIs have dedicated MIDs. Among those:
-- "cssQuery" - jQuery dom manipulation. There are 3 implementations to choose from:
--- amdharness.org/CssQuery/dojo-jQuery - shim to load dojo/query and jQuery API support
--- shimbhala.org/CssQuery/jQuery - shim for cssQuery css selector goup operations
--- amdharness.org/CssQuery/jQuery - shim to load genuine jQuery via AMD
+* "cssQuery" - jQuery dom manipulation. There are 3 implementations to choose from:
+	- amdharness.org/CssQuery/dojo-jQuery - shim to load dojo/query and jQuery API support
+	- shimbhala.org/CssQuery/jQuery - shim for cssQuery css selector goup operations
+	- amdharness.org/CssQuery/jQuery - shim to load genuine jQuery via AMD
 
-- "cssI!" AMD plugin to embed CSS link into page. Alternatives are XStyle, tbd.
+* "cssI!" AMD plugin to embed CSS link into page. Alternatives are XStyle, tbd.
 
-- "textTemplate!" shortcut to "text!myTemplate.html!strip" pligin with following implementations:
--- amdharness.org/amd/text/textTemplate - shim for "dojo/text!" with bug fixes for relative MIDs.
--- "dojo/text" - genuine template loading plugin, does not treat MIDs.
--- require.js "text!" plugin, does not have a concept of context teplacement, hence not aware of MIDs at all.
+* "textTemplate!" shortcut to "text!myTemplate.html!strip" pligin with following implementations:
+	- amdharness.org/amd/text/textTemplate - shim for "dojo/text!" with bug fixes for relative MIDs.
+	- "dojo/text" - genuine template loading plugin, does not treat MIDs.
+	- require.js "text!" plugin, does not have a concept of context teplacement, hence not aware of MIDs at all.
 
 
-relative MID support
---------------------
+## relative MID support
+
 made a fist-class citizen. Shims embedded into loader.js will fix the lack of relative MIDs on page, template and
 parser levels in AMD provider like dojo or Require.js.
 I.e it is permitted and encouraged to use relative MIDs everywhere starting from HTML pages, test pages and templates.
 
-== design notes
+## design notes
 
 AmdHarness-loader where loader.js is located embedded into application project as git subtree.
 Such use of AmdHarness-loader [todo replace w/ cdn link] as embedded in your project folder will allow:
@@ -81,10 +81,17 @@ contribute your fixes to external module and also merging external module update
 
 To initialize the external module in application( replace lib/dojotoolkit.org/dojo with your org/module as folder path and your git link with revision ):
 $cd amdharness-app
-$git subtree add -P=lib/dojotoolkit.org/dojo --squash \
-                 https://github.com/dojo/dojo.git -b 1.9
-you could use "master" instead of branch to use the latest. It is advisable only when planning to change the module
+
+	make an "dojo" alias name for remote repo for brevity
+$ git remote add -t 1.9 dojo https://github.com/dojo/dojo.git
+
+$ git subtree add -P=lib/dojotoolkit.org/dojo dojo/1.9 --squash
+
+you could use "master" instead of 1.9 branch to use the latest. It is advisable only when planning to change the module
 and contribute it back.
+
+	to see all remote aliases
+$ git remote -v
 
 
 
