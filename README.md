@@ -80,12 +80,13 @@ fixes into application repository without the need to alter original sources. St
 contribute your fixes to external module and also merging external module updates back to application.
 
 To initialize the external module in application( replace lib/dojotoolkit.org/dojo with your org/module as folder path and your git link with revision ):
+
 $cd amdharness-app
 
 	make an "dojo" alias name for remote repo for brevity
 $ git remote add -t 1.9 dojo https://github.com/dojo/dojo.git
-
-$ git subtree add -P=lib/dojotoolkit.org/dojo dojo/1.9 --squash
+$ git fetch dojo
+$ git subtree add -P lib/dojotoolkit.org/dojo dojo/1.9 --squash
 
 you could use "master" instead of 1.9 branch to use the latest. It is advisable only when planning to change the module
 and contribute it back.
@@ -94,6 +95,17 @@ and contribute it back.
 $ git remote -v
 
 
-
+default modules
+```Shell
+$ git remote add -t 1.9 dojo https://github.com/dojo/dojo.git
+$ git remote add -t 1.9 dijit https://github.com/dojo/dijit.git
+$ git remote add -t 1.9 dojox https://github.com/dojo/dojox.git
+$ git remote add -t 1.9 dojoutil https://github.com/dojo/util.git
+$ git fetch --all
+$ git subtree add -P lib/dojotoolkit.org/dojo dojo/1.9 --squash
+$ git subtree add -P lib/dojotoolkit.org/dijit dijit/1.9 --squash
+$ git subtree add -P lib/dojotoolkit.org/dojox dojox/1.9 --squash
+$ git subtree add -P lib/dojotoolkit.org/util dojoutil/1.9 --squash
+```
 
 
