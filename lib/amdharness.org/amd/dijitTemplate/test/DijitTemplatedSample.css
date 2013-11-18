@@ -1,0 +1,3 @@
+.DijitTemplatedSample {border: dotted;}
+.DijitTemplatedSample .cssTestPass{ display: inline-block;}
+.DijitTemplatedSample .cssTestFail{ display: none;}
