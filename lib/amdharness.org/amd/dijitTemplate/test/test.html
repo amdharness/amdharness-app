@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>app/loader test</title>
+	<script src="../../../../../app/loader/loader.js" type="text/javascript" 	>/* AmdHarness convention */</script>
+</head>
+<body class="claro" >
+	<h1>amd/dijitTemplate test <b>| <a href="./">./</a></b></h1>
+	<p>	This test is designed to cover the use of relative to dijit template file MIDs
+	</p>
+	<hr/>
+	<fieldset>
+		<legend>Full MIDs to test widgets appearance rather relative MID</legend>
+		<button data-dojo-type="dijit/form/Button">Button widget</button> as regular dijit sample.<br/>
+		<span data-dojo-type="amdharness.org/amd/dijitTemplate/test/DijitSimple">FAILED</span> data-dojo-type=<b>"amdharness.org/amd/dijitTemplate/test/DijitSimple"</b><br/>
+	</fieldset>
+
+	<hr/>
+	<ol>
+		<li class="ParserTest" >dijit with "<a href="DijitSimple.js">./DijitSimple</a> relative MID on page to test parser
+			<b>data-dojo-type="<a href="DijitSimple.js">./DijitSimple</a>	</b> <br/>
+			<span class="testWidget" ><span data-dojo-type="./DijitSimple"	>...</span></span></li>
+
+		<li class="ParserTest" > dijit with "<a href="DijitSimple.js">./DijitSimple</a> relative MID in tempate of
+			<b>data-dojo-type="<a href="DijitTemplatedSample.html">./DijitTemplatedSample</a>	</b>
+			<span class="testWidget" ><span data-dojo-type="./DijitTemplatedSample"	>...</span></span></li>
+
+		<li class="ParserTest" > dijit with "<a href="./DijitSimple.js">../DijitSimple</a> relative MID in tempate of
+			<b>data-dojo-type="<a href="subfolder/DijitInSubfolder.html">./subfolder/DijitInSubfolder</a>"	</b>
+			<span class="testWidget" ><span data-dojo-type="./subfolder/DijitInSubfolder"	>...</span></span></li>
+	</ol>
+
+	<p>	Dijit implementation does not have the support for relative MIDs in templates and by parser.<br/>
+		This test validates AmdHarness shims which adding support for such MIDs.</br>
+	</p>
+
+</body>
+</html>
