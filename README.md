@@ -91,9 +91,11 @@ $ git subtree add -P lib/dojotoolkit.org/dojo dojo/1.9 --squash
 you could use "master" instead of 1.9 branch to use the latest. It is advisable only when planning to change the module
 and contribute it back.
 
-	to see all remote aliases
-$ git remote -v
+To see all remote aliases
+	$ git remote -v
 
+To commit local changes into remote project:
+	$ git subtree push -P lib/amdharness.org/amd/cssI/ AmdHarness-amd-cssI master
 
 default modules
 ```Shell
