@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DijitTemplatedSample template</title>
+	<script src="../loader.js" type="text/javascript"	></script>
+	<script>
+		require([ "dojo/parser","../PageRequire"], function( parser, require )
+		{
+//			(require.modules["dojo/parser"] || require.module).mid = location.pathname;
+			parser.parse({	contextRequire : require  });
+		});
+	</script>
+</head>
+<body>
+	<div passed="1" ><!-- DIV as only element for "text! !strip" plugin test-->
+			PASSED DijitTemplatedSample template load<br/>
+			<span data-dojo-type="./DijitSimple">FAILED</span> data-dojo-type=<b>"./DijitSimple"</b> <br/>
+			The template is loaded with referenceModule=parser. Solution will be in reassigning referenceModule.mid to
+			template URL for the time of parsing.
+	</div>
+</body>
+</html>
