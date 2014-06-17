@@ -80,12 +80,17 @@ var dojoConfig;
 	s.onreadystatechange 	= FixDojoRequire;
 	parent.appendChild( s );
 
+	var deps =
+			[	"cssI!dijit/themes/claro/claro.css"
+				,	"cssI!dojo/resources/dojo.css"
+				,	"cssI!dijit/themes/dijit.css"
+			];
+//	if( !Array.prototype.forEach )
+//		deps.push("shim!es-shims/es5-shim/es5-shim");// MIT lic., https://github.com/es-shims/es5-shim
+
 	//	CSS for page loading should be embedded into HTML. It serves just "loading..." UI.
 	//	Than goes application specific but reused in multiple pages:
-require([	"cssI!dijit/themes/claro/claro.css"
-		,	"cssI!dojo/resources/dojo.css"
-		,	"cssI!dijit/themes/dijit.css"
-		],function()
+require(deps,function()
 	{
 		// lastly (better on timeout) loaded CSS and JS which is not in immediate need, just to preload in case it will be demanded
 //		require([	"AMD/cssI!/Styles/App.css"		]);

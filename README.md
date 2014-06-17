@@ -107,6 +107,7 @@ git remote add -t 1.9 dojo https://github.com/dojo/dojo.git
 git remote add -t 1.9 dijit https://github.com/dojo/dijit.git
 git remote add -t 1.9 dojox https://github.com/dojo/dojox.git
 git remote add -t 1.9 dojoutil https://github.com/dojo/util.git
+git remote add -t master es5-shim https://github.com/es-shims/es5-shim.git
 git fetch --all
 git subtree add -P app/loader AmdHarness-app-loader-dojo/master
 git subtree add -P lib/amdharness.org/amd/dijitTemplate AmdHarness-amd-dijitTemplate/master
@@ -115,6 +116,7 @@ git subtree add -P lib/dojotoolkit.org/dojo dojo/1.9 --squash
 git subtree add -P lib/dojotoolkit.org/dijit dijit/1.9 --squash
 git subtree add -P lib/dojotoolkit.org/dojox dojox/1.9 --squash
 git subtree add -P lib/dojotoolkit.org/util dojoutil/1.9 --squash
+git subtree add -P lib/compat/es5-shim es5-shim/master --squash
 ```
 
 
