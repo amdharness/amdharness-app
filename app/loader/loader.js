@@ -22,7 +22,10 @@ var dojoConfig;
 					]
 	,	paths:{ currentPage:location.pathname.substring(0,location.pathname.lastIndexOf('/'))}
 	,	aliases:[["text","dojo/text"],["cssQuery","dojo/query"],["cssI","amdharness.org/amd/cssI/cssI"]]
-	,   deps:["dojo/query","dojo/NodeList-manipulate"]
+	,   deps:	[	"dojo/query"
+				,	"dojo/NodeList-manipulate"
+				,	"lib/amdharness.org/compat/js5/js5!lib/es-shims/es5-shim"
+				]
 	},	dojoConfig );
 
 	function FixDojoRequire()
