@@ -19,10 +19,11 @@ WhyAmdHarness-loader
 
 Bootstrap, The 3-stage CSS and JS loading 
 -----------------------------------------
-As a part of [AmdHarness bootstrap projects set](https://github.com/amdharness), the loader.js serves as primary entry point of main code base. Under AmdHarness the app/index.html and any HTML page( like test ) comprize the embedded JS and CSS only for initial one-page UI, often as "loading..." animation. The loading page specific resources (CSS, images, some JS) are meant to be compiled-in into HTML.
+*1.* As a part of [AmdHarness bootstrap projects set](https://github.com/amdharness), the loader.js serves as primary entry point of main code base. Before it is loaded, the app/index.html and any HTML page( like test ) comprize the *embedded* JS and CSS only for initial one-page UI, often as "loading..." animation. The loading page specific resources (CSS, images, some JS) are meant to be compiled-in into HTML.
 
-In second phase the ```<script src="../loader/loader.js" type="text/javascript"    ></script>``` upon page load lazily will initiate main application screen resources: JS, CSS, templates as AMD modules. The production version of loader.js will be assembled from compiled and compressed JS of most reused modules along with templates and CSS-es.
-Beyond the main app screen remaining UI could be loaded lazily on demand by usual AMD means.
+*2.* In second phase the ```<script src="../loader/loader.js" type="text/javascript" async="true" ></script>``` upon page load lazily will initiate main application screen resources: JS, CSS, templates as AMD modules. The production version of loader.js will be assembled from compiled and compressed JS of most reused modules along with templates and CSS-es.
+
+*3.* Beyond the main app screen remaining UI could be loaded lazily on demand by usual AMD means.
 
 Reusable application-wide resources 
 -----------------------------------
