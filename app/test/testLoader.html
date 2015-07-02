@@ -2,11 +2,12 @@
 <html>
 	<head>
 		<title>app/loader test</title>
-        <script src="../loader/loader.js" type="text/javascript" 	></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script src="../loader/loader.js" type="text/javascript" 	></script>
 		<script type="text/javascript"	>
-			require(["dojo/query","dojo/parser","app/test/a","dojo/NodeList-manipulate"],function($,parser,a)
+			require(["dojo/query","dojo/parser","app/test/a","dojo/NodeList-manipulate"],function( $, parser )
 			{
-				$(".test" ).forEach(function(el)
+				$(".test" ).forEach( function( el )
 				{
 					$( el ).html("...");
 					test( el.getAttribute("data-test-mid"), el );
@@ -14,67 +15,66 @@
 
 				require(["dojo/domReady!"], function()
 				{
-					$(".ParserTest" ).forEach(function(el)
+					$(".ParserTest" ).forEach( function( el )
 					{	var $label = $("label",el).html("...");
 						parser
-							.parse($(".testWidget",el)[0] )
+							.parse( $(".testWidget",el)[0] )
 							.then		(function(a){	$label.html( a && a[0] && a[0].passed ? "PASSED" : "FAILED");})
-							.otherwise	(function(a){	$label.html("FAILED");});
-					});
-
-				});
-				require(["dojo/ready"], function(ready)
-				{	ready(function()
-					{
-
+							.otherwise	(function( ){	$label.html("FAILED");});
 					});
 				});
 
 				function test( mid, el )
-				{	require([mid], function(a)
+				{	require([mid], function( a )
 					{	try
-						{	if( a.passed || a.substring(0,4)== "<div" )
-								return console.log( mid, "PASSED" ), $( el ).html("PASSED");
-						}catch(ex){console.log(ex); }
-						console.log( mid, "FAILED" );
-						$( el ).html("FAILED");
+						{	if( "function" == typeof a )		// MID matches a module implemented as a function (cssQuery)
+								return log( "PASSED" );
+							if( 	a.passed					// test modules are the object with this flag set
+							 	|| 	a.substring(0,4)== "<div" 	// mid is a template extracted by text! plugin
+							  )
+								return log( "PASSED" );
+						}catch(ex){ log(ex); }
+						log( "FAILED" );
+						function log(out){ console.log( mid, out ); $( el ).html( out ); }
 					});
 				}
 			});
 		</script>
 		
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	</head>
 	<body class="claro" >
-		<div passed="1" ><!-- DIV as only element for "text! !strip" plugin test-->
+		<div><!-- DIV as only element for "text! !strip" plugin test-->
 			<h1>app/loader test <b>| <a href="./">./</a></b></h1>
-			<p>	This test is designed to cover common patterns used in application:<br/>
-				<ul>
-					<li>AMD MID used in application, templates self-tests and individual pages.</li>
-					<li>CSS selector with jQuery API. As a acknowledge of most popular DOM query and manipulation API.</li>
-					<li>TBD</li>
-				</ul>
-			</p>
+			<p>	This test is designed to cover common patterns used in AMD application and dojoToolkit based UI:</p>
+			<ul>
+				<li>AMD MID used in application 					</li>
+				<li>in <b>data-dojo-type</b> of templates 			</li>
+				<li>in <b>data-dojo-type</b> of individual pages. 	</li>
+				<li>in AMD plugin parameter 						</li>
+				<li>CDN fallback 									</li>
+				<li>cssQuery 										</li>
+			</ul>
+			<h3>Test cases <small>should have PASSED upon completion</small></h3>
 			<ol>
 				<li><label class="test" data-test-mid="./a"			>./ </label> <b>relative to current page MID 	</b> <code>require(["<a href="a.js">./a</a>","<a href="b.js">./b</a>"])</code></li>
 				<li><label class="test" data-test-mid="../test/a"	>../</label> <b>parent to current page MID 		</b> <code>require(["<a href="../test/a.js">../test/a</a>","<a href="a.js">./a</a>"])</code></li>
 				<li><label class="test" data-test-mid="../test/a"	>../</label> <b>parent to current page MID 		</b> <code>require(["<a href="../test/a.js">../test/a</a>","<a href="a.js">./a</a>"])</code></li>
 				<li><label class="test" data-test-mid="./a"			>./ </label> <b>relative to current page MID 	</b> <code>require(["<a href="a.js">./a</a>","<a href="b.js">./b</a>"])</code></li>
-				<li><label class="test" data-test-mid="text!./testLoader.html!strip"		>text!</label> <b>parent to current page MID 		</b> <code>require(["<a href="./testLoader.html"		>text!./testLoader.html!strip 		</a>"])</code></li>
-				<li><label class="test" data-test-mid="text!../test/testLoader.html!strip"	>text!</label> <b>parent to current page MID 		</b> <code>require(["<a href="../test/testLoader.html"	>text!../test/testLoader.html!strip </a>"])</code></li>
+				<li><label class="test" data-test-mid="text!./testLoader.html!strip"		>text!</label> plugin <b>parent to current page MID 		</b> <code>require(["<a href="./testLoader.html"		>text!./testLoader.html!strip 		</a>"])</code></li>
+				<li><label class="test" data-test-mid="text!../test/testLoader.html!strip"	>text!</label> plugin <b>parent to current page MID 		</b> <code>require(["<a href="../test/testLoader.html"	>text!../test/testLoader.html!strip </a>"])</code></li>
 				<li><label class="Zest" data-test-mid="dojo"	>todo</label> <b>CDN order 					</b></li>
 				<li><label class="Zest" data-test-mid="dojo"	>todo</label> <b>failed CDN, loaded CDN 	</b></li>
 				<li><label class="Zest" data-test-mid="dojo"	>todo</label> <b>failed CDN, loaded local 	</b></li>
 				<li class="ParserTest" ><label>?</label> dojo/parser with MID in 						<b>data-dojo-type="app/loader/test/DijitSimple"			</b> <span class="testWidget" ><span data-dojo-type="app/loader/test/DijitSimple"			>...</span></span></li>
 				<li class="ParserTest" ><label>?</label> dojo/parser with relative MID in 				<b>data-dojo-type="../loader/test/DijitSimple"			</b> <span class="testWidget" ><span data-dojo-type="../loader/test/DijitSimple"			>...</span></span></li>
-				<li class="ParserTest" ><label>?</label> dojo/parser with relative MID in tempate of 	<b>data-dojo-type="../loader/test/DijitTemplatedSample"	</b> <span class="testWidget" ><span data-dojo-type="../loader/test/DijitTemplatedSample"	>...</span></span></li>
-				<li><label class="Zest" data-test-mid="dojo"	>todo</label> dijit/templated with relative MID in <b>data-dojo-type</b></li>
-				<li>app/cssQuery/cssQuery. TODO</li>
+				<li class="ParserTest" ><label>?</label> dojo/parser with relative MID in template of 	<b>data-dojo-type="../loader/test/DijitTemplatedSample"	</b> <span class="testWidget" ><span data-dojo-type="../loader/test/DijitTemplatedSample"	>...</span></span></li>
+				<li><label class="Zest" data-test-mid="dojo"		>todo</label> dijit/templated with relative MID in <b>data-dojo-type</b></li>
+				<li><label class="test" data-test-mid="cssQuery"	>FAILED</label> cssQuery. TODO full API test. </li>
 			</ol>
 
 			<p>	Surprisingly AMD as a standard still have a bit of hiccups.<br/>
-				Treating relative URLs on HTML level from global require, fail back on CDN is not a part of standard.</br>
-				In order to work around each AMD implementation should have shims sufficient to comply to this test.
+				Treating relative to HTML MIDs in global require() or fail back on CDN is not a part of standard.<br/>
+				In order to work around each the AMD implementation should have shims sufficient to comply to this test.
 			</p>
 			<p> Plugins should be relative path aware, some AMD implementations on top level require() are missing those.
 			</p>
