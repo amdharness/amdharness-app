@@ -8,19 +8,18 @@
 			{
 				$(".test" ).forEach(function(el)
 				{
-					$(el ).html("...");
+					$( el ).html("...");
 					test( el.getAttribute("data-test-mid"), el );
 				});
 
 				require(["dojo/domReady!"], function()
 				{
 					$(".ParserTest" ).forEach(function(el)
-					{	$("label",el).html("...");
-						parser.parse($(".testWidget",el)[0] )
-								.then		(function(a){
-															$( "label",el).html(a&&a[0]&&a[0].passed?"PASSED":"FAILED");})
-								.otherwise	(function(a){
-															$( "label",el).html("FAILED");});
+					{	var $label = $("label",el).html("...");
+						parser
+							.parse($(".testWidget",el)[0] )
+							.then		(function(a){	$label.html( a && a[0] && a[0].passed ? "PASSED" : "FAILED");})
+							.otherwise	(function(a){	$label.html("FAILED");});
 					});
 
 				});
@@ -66,8 +65,8 @@
 				<li><label class="Zest" data-test-mid="dojo"	>todo</label> <b>CDN order 					</b></li>
 				<li><label class="Zest" data-test-mid="dojo"	>todo</label> <b>failed CDN, loaded CDN 	</b></li>
 				<li><label class="Zest" data-test-mid="dojo"	>todo</label> <b>failed CDN, loaded local 	</b></li>
-				<li class="ParserTest" ><label>?</label> dojo/parser with MID in 			<b>data-dojo-type="loader/test/DijitSimple"		</b> <span class="testWidget" ><span data-dojo-type="loader/test/DijitSimple"		>...</span></span></li>
-				<li class="ParserTest" ><label>?</label> dojo/parser with relative MID in 	<b>data-dojo-type="../loader/test/DijitSimple"	</b> <span class="testWidget" ><span data-dojo-type="../loader/test/DijitSimple"	>...</span></span></li>
+				<li class="ParserTest" ><label>?</label> dojo/parser with MID in 						<b>data-dojo-type="app/loader/test/DijitSimple"			</b> <span class="testWidget" ><span data-dojo-type="app/loader/test/DijitSimple"			>...</span></span></li>
+				<li class="ParserTest" ><label>?</label> dojo/parser with relative MID in 				<b>data-dojo-type="../loader/test/DijitSimple"			</b> <span class="testWidget" ><span data-dojo-type="../loader/test/DijitSimple"			>...</span></span></li>
 				<li class="ParserTest" ><label>?</label> dojo/parser with relative MID in tempate of 	<b>data-dojo-type="../loader/test/DijitTemplatedSample"	</b> <span class="testWidget" ><span data-dojo-type="../loader/test/DijitTemplatedSample"	>...</span></span></li>
 				<li><label class="Zest" data-test-mid="dojo"	>todo</label> dijit/templated with relative MID in <b>data-dojo-type</b></li>
 				<li>app/cssQuery/cssQuery. TODO</li>

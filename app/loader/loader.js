@@ -5,9 +5,10 @@
 var dojoConfig;
 
 (function()
-{   var lp = location.pathname.substring( 0,location.pathname.indexOf("lib/"))
-	,	ap = location.pathname.substring( 0,location.pathname.indexOf("app/"))
-	,	bp = (lp || ap)+"lib/"; // parent of dojotoolkit.org/dojo  folder
+{   var path = location.pathname
+	,	bp 	 = 	(	path.substring( 0,path.indexOf("/app/") )
+				|| 	path.substring( 0,path.indexOf("/lib/") )
+				)+"/lib/"; // parent of dojotoolkit.org/dojo  folder
 
 	dojoConfig = mixin( 
 	{   async:1, isDebug:1
@@ -20,11 +21,11 @@ var dojoConfig;
 					,   { name:'loader'	, location: bp + "../app/loader"	}
 					,   { name:'app'	, location: bp + "../app"			}
 					]
-	,	paths:{ currentPage:location.pathname.substring(0,location.pathname.lastIndexOf('/'))}
+	,	paths:{ currentPage:path.substring(0,path.lastIndexOf('/'))}
 	,	aliases:[["text","dojo/text"],["cssQuery","dojo/query"],["cssI","amdharness.org/amd/cssI/cssI"]]
 	,   deps:	[	"dojo/query"
 				,	"dojo/NodeList-manipulate"
-				,	"lib/amdharness.org/compat/js5/js5!lib/es-shims/es5-shim"
+//				,	"lib/amdharness.org/compat/js5/js5!lib/compat/es-shims/es5-shim"
 				]
 	},	dojoConfig );
 
@@ -57,7 +58,7 @@ var dojoConfig;
 			require( ["dojo/ready","dojo/parser","dojo/DomReady!"], function( ready, parser )
 			{	ready( 100, function()
 				{
-					dojoRequire.modules["dojo/parser"].mid = PageRequire.toMID(location.pathname);
+					dojoRequire.modules["dojo/parser"].mid = PageRequire.toMID(path);
 					// todo fix module auto-load unsupported by _WidgetsInTemplateMixin
 					parser.parse();//{contextRequire:dojoRequire});
 				});
