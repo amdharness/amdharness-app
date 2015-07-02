@@ -94,5 +94,11 @@ and contribute it back.
 To see all remote aliases
     $ git remote -v
 
-To commit local changes into remote project:
-    $ git subtree push -P lib/amdharness.org/amd/cssI/ AmdHarness-amd-cssI master
+To commit local changes into remote project.
+# commit local changes
+# subtree merge, pull and finally push to secondary repo branch.
+If necessary cherry-pick commits from that branch to merge with master
+
+    git subtree merge -P app/loader master
+    git subtree pull -P app/loader AmdHarness-app-loader-dojo master
+    git subtree push -P app/loader AmdHarness-app-loader-dojo master
