@@ -50,7 +50,7 @@ made a fist-class citizen. Shims embedded into loader.js will fix the lack of re
 parser levels in AMD provider like dojo or Require.js.
 I.e it is permitted and encouraged to use relative MIDs everywhere starting from HTML pages, test pages and templates.
 
-== design notes ==
+= design notes =
 
 loader.js reside within <var>app/loader</var> subfolder mapped to
 [https://github.com/amdharness/AmdHarness-app-loader-dojo AmdHarness-app-loader-dojo] repository embedded as git subtree.
@@ -72,6 +72,14 @@ It fixes relative path and other bugs on specific AMD loaders to make <b>indepen
 * Alternatives to toolkits. Many aspects of dojo toolkit could be implemented by other libraries like AMD loader by RequireJS, cssQuery by jQuery, etc.
 
 Listing of API and alternatives open for public on wiki pages.
+
+== CDN fallback ==
+You wanted to use CDN for [http://www.sitepoint.com/7-reasons-to-use-a-cdn/ multiple reasons] like reduction of your server load or gain on [https://en.wikipedia.org/wiki/Content_delivery_network CDN] speed and presence in browser's cache (faster load). But since CDN is out of your control and could be blocked in some cases it is in app interest to fall back to copy deployed along with web application.
+
+=== dojo CDN ===
+loader.js has the module defined as an array of URLs which will be tried in listed order until one will be resolved successfully. dojo.js is an AMD loader and a primary JS file used to make a distinction whether CDN has full dojo family module.
+
+In <b>amdharness-app</b> the few CDN versions of dojo will be tried first and only if not found the local version will be used.
 
 == git subtree in AmdHarness ==
 
