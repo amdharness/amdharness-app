@@ -16,7 +16,7 @@ define(["require"], function( localRequire )
 		if( cp[M] != pr[M] )
 			break;
 
-	localRequire.modules["loader/PageRequire"].mid = location.pathname;
+	localRequire.module.mid = location.pathname;
 
 	var ret = mixin( function contextRequire
 	(	config		  	//(object, optional) hash of configuration properties

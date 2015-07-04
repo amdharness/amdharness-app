@@ -58,7 +58,7 @@ var dojoConfig;
 			require( ["dojo/ready","dojo/parser","dojo/DomReady!"], function( ready, parser )
 			{	ready( 100, function()
 				{
-					dojoRequire.modules["dojo/parser"].mid = PageRequire.toMID(path);
+					dojoRequire("dojo/parser").mid = PageRequire.toMID(path);
 					// todo fix module auto-load unsupported by _WidgetsInTemplateMixin
 					parser.parse();//{contextRequire:dojoRequire});
 				});
