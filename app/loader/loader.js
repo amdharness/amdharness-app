@@ -76,13 +76,11 @@ var dojoConfig;
 	facade.isFacade 	= 1;
 	facade.calls 		= [];
 
-	var parent = document.head || document.documentElement
-	,	s 	= document.createElement("script");
-	s.src 	= dojoConfig.baseUrl+"dojotoolkit.org/dojo/dojo.js";
-	s.type	= "text/javascript";
-	s.onload 				= FixDojoRequire;
-	s.onreadystatechange 	= FixDojoRequire;
-	parent.appendChild( s );
+	var loaders =
+	[	 "//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
+	,	 dojoConfig.baseUrl + "dojotoolkit.org/dojo/dojo.js"
+	];
+	onScriptError();
 
 	var deps =
 			[	"cssI!dijit/themes/claro/claro.css"
@@ -94,10 +92,27 @@ var dojoConfig;
 
 	//	CSS for page loading should be embedded into HTML. It serves just "loading..." UI.
 	//	Than goes application specific but reused in multiple pages:
-require(deps,function()
+	require(deps,function()
 	{
-		// lastly (better on timeout) loaded CSS and JS which is not in immediate need, just to preload in case it will be demanded
-//		require([	"AMD/cssI!/Styles/App.css"		]);
+		//	lastly (better on timeout) loaded CSS and JS which is not in immediate need, just to preload in case it will be demanded
+		//	require([	"AMD/cssI!/Styles/App.css"		]);
 	});
-	// The page specific CSS and JS is embedded into HTML itself as require() list and code.
+	// The page specific CSS and JS is embedded into HTML itself with require( MIDsArr ).
+
+	function onScriptError()
+	{
+		addScript( loaders.shift() );
+	}
+	function addScript( url )
+	{
+		var parent 	= document.head || document.documentElement
+		, 	s 		= document.createElement( "script" );
+		s.src 	= url;
+		s.type 	= "text/javascript";
+		s.async = !0;
+		s.onerror	= onScriptError;
+		s.onload	= FixDojoRequire;
+		s.onreadystatechange = FixDojoRequire;
+		parent.appendChild( s );
+	}
 })();
