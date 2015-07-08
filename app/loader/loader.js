@@ -8,10 +8,10 @@ var dojoConfig;
 {   var path = location.pathname
 	,	bp 	 = 	(	path.substring( 0,path.indexOf("/app/") )
 				|| 	path.substring( 0,path.indexOf("/lib/") )
-				)+"/lib/"; // parent of dojotoolkit.org/dojo  folder
-
+				)+"/lib/" // parent of dojotoolkit.org/dojo  folder
+	, isDebug = location.search.indexOf("debug=") > 0;
 	dojoConfig = mixin( 
-	{   async:1, isDebug:1
+	{   async:1, isDebug:isDebug
 	,	parseOnLoad	: false // parser invoked manually bellow to keep relative MIDs.
 	,   has     :   { 'config-tlmSiblingOfDojo':0 }
 	,   baseUrl :   bp
@@ -77,7 +77,7 @@ var dojoConfig;
 	facade.calls 		= [];
 
 	var loaders =
-	[	 "//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
+	[	 "//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" + ( isDebug? ".uncompressed.js" : "")
 	,	 dojoConfig.baseUrl + "dojotoolkit.org/dojo/dojo.js"
 	];
 	onScriptError();
